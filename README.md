@@ -1,4 +1,4 @@
-# Solow
+# Solow Dynamics
 We solve the Solow Growth Model in Julia using Modeling Toolkit. First we load the packages that we will be using
 
 ```Julia
@@ -55,11 +55,27 @@ and the time interval
 tspan = (0.0,50.0)
 ```
 
-that is, we start at *t = 0* and the solution is computed until *t = 50*
+that is, we start at *t = 0* and the solution is computed until *t = 50*. The next step is to set the problem in Julia
 
+```Julia
 prob = ODEProblem(Solow, k0, tspan, p)
+```
+
+and to solve it
+
+```Julia
 sol = solve(prob)
+```
+
+We can then plot the solution
+
+```Julia
 plot(sol, vars=[k,y,c])
+```
+![](https://github.com/alerodri1976/Solow/blob/main/Solow_1.png)
+
+# Solow Steady State
+
 
 ss_eqs = [      y ~ A*k^α,
                 c ~ (1 - s)*y,
