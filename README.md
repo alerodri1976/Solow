@@ -76,24 +76,88 @@ plot(sol, vars=[k,y,c])
 
 # Solow Steady State
 
+No we will use a nonlinear solver to find the steady state of the Solow growth model. This model is simple enough so that the steady state can be calculated with pen and paper but let´s solve it numerically. First we define our steady state equations by setting *D(x) = 0*
 
+```Julia
 ss_eqs = [      y ~ A*k^α,
                 c ~ (1 - s)*y,
                 0 ~ y - c - (δ + g + n)*k ]
+```
+We then tell Julia that this is a nonlinear system
 
+```Julia
 @named ss_sys = NonlinearSystem(ss_eqs, [c,y,k], [A,s,α,δ,g,n])
-ss_sys = structural_simplify(ss_sys)
-ss_prob = NonlinearProblem(ss_sys,[k=>2.0],p)
-ss_sol = solve(ss_prob)
+```
+and we simplify it
 
+```Julia
+ss_sys = structural_simplify(ss_sys)
+```
+
+Then we set the problem using our parameters in *p* and we define an initial condition for our solver which is *k = 2*
+
+```Julia
+ss_prob = NonlinearProblem(ss_sys,[k=>2.0],p)
+```
+
+Finaly we tell Julia to the solution to our problem
+
+```Julia
+ss_sol = solve(ss_prob)
+```
+
+We can see the steady state values for *y, c* and *k* using symbolic indexing
+
+```Julia
+ss_sol[y]
+ss_sol[c]
+ss_sol[k]
+```
+# Comparative Statics
+
+Now we show how the solution changes when one of the parameters changes. In this example we will increase the savings rate *s* from 20% to 30% in *t = 10* assuming that we start in a steady state. To do so we will simulate our model under two sets of initial conditions and parameters. First we simulate our baseline model which starts at the steady state.
+
+```Julia
 k0 = [k => ss_sol[k]]
 prob = ODEProblem(Solow, k0, tspan, p)
 sol = solve(prob)
-plot(sol, vars=[k,y,c])
+```
+
+Now we setup our alternative world by changing the parameters of the model
+
+```Julia
 p2 = [A => 1, α => 0.5, s => 0.3, δ => 0.065, g => 0.02, n => 0.015]
+```
+
+the initial condition
+
+```Julia
 k02 = [k => sol(10.0,idxs=k)]
+```
+
+and the time span
+
+```Julia
 tspan2 = (10.0,50.0)
+```
+
+We put all this together into a new problem and solve it
+
+```Julia
 prob2 = ODEProblem(Solow, k02, tspan2, p2)
 sol2 = solve(prob2)
+```
+
+To plot our solutions first we plot the solution from the baseline simulation
+
+```Julia
+plot(sol, vars=[k,y,c])
+```
+
+and the we tell Julia to add the second simulation to the same plot by using the *plot!* command instead of the *plot* function.
+
+```Julia
 plot!(sol2, vars=[k,y,c],xlims=tspan)
 ```
+In this case we added the *xlims=tspan* option so that the x-axis range is kept from *t = 0* to *t = 50*
+
