@@ -1,4 +1,5 @@
-# Solow Dynamics
+# Solow Growth Model
+
 We solve the Solow Growth Model in Julia using Modeling Toolkit. First we load the packages that we will be using
 
 ```Julia
@@ -39,6 +40,8 @@ Solow = structural_simplify(Solow)
 ```
 Notice that before we simplified our model, Julia treated Solow as a model with 3 state variables and 3 equations. After we simplication it became a model with one state variable and one equation.
 
+## Simulation
+
 If we want to simulate how our economy will evolve over time we need to define our parameters
 
 ```Julia
@@ -74,7 +77,7 @@ plot(sol, vars=[k,y,c])
 ```
 ![](https://github.com/alerodri1976/Solow/blob/main/Solow_1.png)
 
-# Solow Steady State
+## Steady State
 
 No we will use a nonlinear solver to find the steady state of the Solow growth model. This model is simple enough so that the steady state can be calculated with pen and paper but let´s solve it numerically. First we define our steady state equations by setting *D(x) = 0*
 
@@ -113,7 +116,7 @@ ss_sol[y]
 ss_sol[c]
 ss_sol[k]
 ```
-# Comparative Statics
+## Comparative Statics
 
 Now we show how the solution changes when one of the parameters changes. In this example we will increase the savings rate *s* from 20% to 30% in *t = 10* assuming that we start in a steady state. To do so we will simulate our model under two sets of initial conditions and parameters. First we simulate our baseline model which starts at the steady state.
 
