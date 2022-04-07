@@ -55,7 +55,7 @@ and the time interval
 tspan = (0.0,50.0)
 ```
 
-that is, we start at *t = 0* and the solution is computed until *t = 50*. The next step is to set the problem in Julia
+This implies that we start at *t = 0* and the solution is computed until *t = 50*. The next step is to set the problem in Julia
 
 ```Julia
 prob = ODEProblem(Solow, k0, tspan, p)
@@ -161,3 +161,4 @@ plot!(sol2, vars=[k,y,c],xlims=tspan)
 ```
 In this case we added the *xlims=tspan* option so that the x-axis range is kept from *t = 0* to *t = 50*
 
+![](https://github.com/alerodri1976/Solow/blob/main/Solow_2.png)
