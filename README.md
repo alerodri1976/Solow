@@ -5,7 +5,7 @@ We solve the Solow Growth Model in Julia using Modeling Toolkit. First we load t
 ```Julia
 using ModelingToolkit, DifferentialEquations, NonlinearSolve, Plots
 ```
-Then we define our parameteres.
+Then we define our parameteres
 
 ```Julia
 @parameters t A α s δ g n
