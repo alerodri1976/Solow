@@ -103,7 +103,7 @@ Then we set the problem using our parameters in *p* and we define an initial con
 ss_prob = NonlinearProblem(ss_sys,[k=>2.0],p)
 ```
 
-Finaly we tell Julia to the solution to our problem
+Finaly we tell Julia to find the solution to our problem
 
 ```Julia
 ss_sol = solve(ss_prob)
