@@ -162,3 +162,5 @@ plot!(sol2, vars=[k,y,c],xlims=tspan)
 In this case we added the *xlims=tspan* option so that the x-axis range is kept from *t = 0* to *t = 50*
 
 ![](https://github.com/alerodri1976/Solow/blob/main/Solow_2.png)
+
+With a little bit of extra commands we can get the labels of the graph in order but that is beyond the scope of this tutorial.
